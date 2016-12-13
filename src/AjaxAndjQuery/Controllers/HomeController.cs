@@ -1,6 +1,8 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using AjaxAndjQuery.Models.Domain;
+using AjaxAndjQuery.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace AjaxAndjQuery.Controllers
 {
@@ -22,24 +24,27 @@ namespace AjaxAndjQuery.Controllers
         {
             return Content("Hello world");
         }
-
         
         public IActionResult GetJson()
         {
-            throw new NotImplementedException();
+            IEnumerable<Speaker> speakers = _speakerRepository.GetAll();
+            return Json(speakers.Select(s => new SpeakerViewModel(s)));
         }
 
         public IActionResult GetHtml()
         {
-            throw new NotImplementedException();
+            IEnumerable<Speaker> speakers = _speakerRepository.GetAll();
+            return PartialView("_GetHtml", speakers.Select(s => new SpeakerViewModel(s)));
         }
 
         public IActionResult Search(string searchTerm)
         {
-           throw new NotImplementedException();
+            IEnumerable<Speaker> speakers = _speakerRepository.GetByName(searchTerm);
+            return PartialView("_GetHtml", speakers.Select(s => new SpeakerViewModel(s)));
         }
 
-  
-
     }
+
+
 }
+

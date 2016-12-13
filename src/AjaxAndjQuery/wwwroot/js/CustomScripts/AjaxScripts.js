@@ -62,7 +62,9 @@ var speakersView = {
     },
 
     search: function () {
-      
+        $.get("/Home/Search", { searchTerm: $("#searchTerm").val() }, function (data) {
+            $("#result").html(data);
+        });
     },
 
     toHtml: function() {
