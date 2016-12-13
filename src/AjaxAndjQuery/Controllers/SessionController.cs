@@ -20,6 +20,8 @@ namespace AjaxAndjQuery.Controllers
         {
             IEnumerable<Session> sessions = _repository.GetAll();
             IEnumerable<SessionViewModel> sessionViewModels = sessions.Select(s => new SessionViewModel(s)).ToList();
+            if (IsAjaxRequest())
+                return PartialView("_SessionList", sessionViewModels);
             return View("Index", sessionViewModels);
         }
 
@@ -28,14 +30,14 @@ namespace AjaxAndjQuery.Controllers
         {
             _repository.Add(
                 new Session(){Level = session.Level, Description = session.Description, Title = session.Name});
-            return RedirectToAction(nameof(Index));
+            return Index();
         }
 
         [HttpPost]
         public IActionResult Remove(Guid id)
         {
             _repository.Delete(id);
-            return RedirectToAction(nameof(Index));
+            return Index();
         }
 
         private bool IsAjaxRequest()

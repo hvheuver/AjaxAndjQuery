@@ -1,0 +1,36 @@
+﻿@model IEnumerable<AjaxAndjQuery.Models.ViewModels.SessionViewModel>
+
+@if (!Model.Any())
+{
+    @:There are no sessions.  Add one below!
+}
+else
+{
+
+    <table class="table" id="sessions">
+        <tr>
+            <th>Name
+            <th>
+            <th>Description</th>
+            <th>Level</th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.Description</td>
+                <td>@item.Level</td>
+                <td>
+                    <form asp-action="Remove" method="post" class="formRemove">
+                        <input type="hidden" name="id" value="@item.Id" />
+                        <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-remove"></span> Remove</button>
+                    </form>
+                </td>
+            </tr>
+        }
+
+    </table>
+
+}
