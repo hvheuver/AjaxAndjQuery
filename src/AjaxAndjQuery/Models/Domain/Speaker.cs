@@ -1,0 +1,13 @@
+using System;
+
+namespace AjaxAndjQuery.Models.Domain
+{
+    public class Speaker
+    {
+        public Guid Id { get; set; }        
+        public string FullName { get; set;}
+        public string PictureUrl { get; set; }
+        public string Bio { get; set; }
+     
+    }
+}
